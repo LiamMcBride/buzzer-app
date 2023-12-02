@@ -1,23 +1,23 @@
 import './Login.css';
-import {useRef, useState} from 'react'
+import {useState} from 'react'
 
-function Login() {
+function Login(props) {
 
-    const [nameFilled, setNameFilled] = useState(false)
+    const [name, setName] = useState("")
 
     function inputHandler(e) {
         if (e.target.value !== ""){
-            setNameFilled(true)
+            setName(e.target.value)
         }
         else {
-            setNameFilled(false)
+            setName("")
         }
     }
 
     return (
         <div className="App">
-        <button>Host Login</button>
-        <button disabled={!nameFilled}>Player Login</button>
+        <button onClick={() => props.loginHandler("host")}>Host Login</button>
+        <button onClick={() => props.loginHandler(name)} disabled={name === ""}>Player Login</button>
         <input onChange={inputHandler} id="name-input" placeholder="enter name"></input>
         </div>
     );
