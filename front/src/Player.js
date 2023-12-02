@@ -20,8 +20,8 @@ function Player(props) {
 
     return (
         <div>
-            <button onClick={handleExit} class="exit">Exit</button>
-            <button class="buzzer">Buzz</button>
+            <button onClick={handleExit} className="exit">Exit</button>
+            <button className="buzzer">Buzz</button>
         </div>
     );
 }
