@@ -6,6 +6,14 @@ import { useState } from 'react';
 
 function App() {
   const [loggedIn, setLoggedIn] = useState("")
+  
+  const protocol = window.location.protocol;
+  const host = window.location.host;
+  
+  // Set the base URL
+  let newBaseUrl = `${protocol}//${host}`;
+  newBaseUrl = newBaseUrl.slice(0,-1) + "0"
+  const [baseUrl, setBaseUrl] = useState(newBaseUrl)
 
   function loginHandler(type) {
     setLoggedIn(type)
@@ -13,10 +21,10 @@ function App() {
 
   const screen = () => {
     if (loggedIn === "") {
-      return (<Login loginHandler={loginHandler}/>)
+      return (<Login baseUrl={baseUrl} loginHandler={loginHandler}/>)
     }
     if (loggedIn !== "host"){
-      return (<Player logout={() => setLoggedIn("")}/>)
+      return (<Player baseUrl={baseUrl} name={loggedIn} logout={() => setLoggedIn("")}/>)
     }
   }
 

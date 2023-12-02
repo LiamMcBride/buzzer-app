@@ -16,6 +16,8 @@ app.get('/', (req, res) =>
     res.send('<h1>Buzzer App Backend</h1>') // Home web page
 );
 
+let players = []
+
 
 // Create routes for database access
 const router = express.Router();
@@ -27,18 +29,33 @@ app.use('/db', router);
 router.route('/find').get( (req, res) => {
   console.log(`Request made: \n${req}`) //log that a request was made
 });
-router.route('/find/:caption').get(function(req, res) {
-  
+
+router.route('/join').post((req, res) => {
+  const { name } = req.body;
+
+  if (name) {
+    console.log(`Received name: ${name}`);
+    players.push(name)
+    console.log(players)
+    res.status(200).send(`Hello, ${name}!`);
+  } else {
+    res.status(400).send('Bad Request: Missing "name" in the request body.');
+  }
 });
 
-router.route('/update/:id').post( (req, res) => {
+router.route('/leave').post((req, res) => {
+  const { name } = req.body;
 
-  console.log("update")
+  if (name) {
+    console.log(`Received name: ${name}`);
+    players = players.filter((n) => n !== name)
+    console.log(players)
+    res.status(200).send(`Hello, ${name}!`);
+  } else {
+    res.status(400).send('Bad Request: Missing "name" in the request body.');
+  }
 });
 
-router.route('/create').post( (req, res) => {
-  console.log("create")
-});
 
 // Export the app to be used in bin/www.js
 module.exports = app;
