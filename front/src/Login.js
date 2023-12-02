@@ -30,7 +30,7 @@ function Login(props) {
         <div>
             <button onClick={() => loginHandler("host")}>Host Login</button>
             <button onClick={() => loginHandler(name)} disabled={name === ""}>Player Login</button>
-            <input onBlur={inputHandler} id="name-input" placeholder="enter name"></input>
+            <input onInput={inputHandler} id="name-input" placeholder="enter name"></input>
         </div>
     );
 }
