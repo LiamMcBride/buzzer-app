@@ -2,10 +2,12 @@ import logo from './logo.svg';
 import './App.css';
 import Login from './Login';
 import Player from './Player';
-import { useState } from 'react';
+import Host from './Host';
+import axios from 'axios';
+import { useState, useEffect } from 'react';
 
 function App() {
-  const [loggedIn, setLoggedIn] = useState("")
+  const [login, setLogin] = useState("")
   
   const protocol = window.location.protocol;
   const host = window.location.host;
@@ -15,16 +17,19 @@ function App() {
   newBaseUrl = newBaseUrl.slice(0,-1) + "0"
   const [baseUrl, setBaseUrl] = useState(newBaseUrl)
 
-  function loginHandler(type) {
-    setLoggedIn(type)
+  function loginHandler(name) {
+    setLogin(name);
   }
 
   const screen = () => {
-    if (loggedIn === "") {
-      return (<Login baseUrl={baseUrl} loginHandler={loginHandler}/>)
+    if (login === "") { // Login screen
+      return (<Login baseUrl={baseUrl} loginHandler={loginHandler}/>);
     }
-    if (loggedIn !== "host"){
-      return (<Player baseUrl={baseUrl} name={loggedIn} logout={() => setLoggedIn("")}/>)
+    if (login == "admin") { // Host screen
+      return (<Host></Host>);
+    }
+    else {
+      return (<Player baseUrl={baseUrl} name={login} logout={() => setLogin("")}/>);
     }
   }
 

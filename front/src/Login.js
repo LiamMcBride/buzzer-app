@@ -16,7 +16,7 @@ function Login(props) {
     }
 
     function loginHandler(n) {
-        props.loginHandler(n)
+        props.loginHandler(n);
         axios.post(`${props.baseUrl}/db/join/`, {name: n})
         .then(response => {
             console.log('Response:', response.data);
@@ -27,9 +27,8 @@ function Login(props) {
     }
 
     return (
-        <div>
-            <button onClick={() => loginHandler("host")}>Host Login</button>
-            <button onClick={() => loginHandler(name)} disabled={name === ""}>Player Login</button>
+        <div id="loginScreen">
+            <button onClick={() => loginHandler(name)} disabled={name === ""}>Join</button>
             <input onInput={inputHandler} id="name-input" placeholder="enter name"></input>
         </div>
     );

@@ -4,6 +4,10 @@ import axios from 'axios';
 
 function Player(props) {
 
+    function handleBuzz(e) {
+
+    }
+
     function handleExit(e) {
         const result = window.confirm("Do you wish to exit?")
         if(result) {
@@ -20,8 +24,8 @@ function Player(props) {
 
     return (
         <div>
-            <button onClick={handleExit} className="exit">Exit</button>
-            <button className="buzzer">Buzz</button>
+            <button onClick={handleExit} id="exit">Exit</button>
+            <button onClick={handleBuzz} id="buzzer">Buzz</button>
         </div>
     );
 }

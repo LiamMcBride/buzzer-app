@@ -16,7 +16,9 @@ app.get('/', (req, res) =>
     res.send('<h1>Buzzer App Backend</h1>') // Home web page
 );
 
-let players = []
+let data = {
+  players: []
+};
 
 
 // Create routes for database access
@@ -27,16 +29,17 @@ app.use('/db', router);
 
 //db/find endpoint
 router.route('/find').get( (req, res) => {
-  console.log(`Request made: \n${req}`) //log that a request was made
+  // console.log(`Request made: \n${req}`); //log that a request was made
+  res.json(data["players"]);
 });
 
 router.route('/join').post((req, res) => {
   const { name } = req.body;
 
-  if (name) {
+  if (name !== "admin") {
     console.log(`Received name: ${name}`);
-    players.push(name)
-    console.log(players)
+    data["players"].push(name);
+    console.log(data["players"]);
     res.status(200).send(`Hello, ${name}!`);
   } else {
     res.status(400).send('Bad Request: Missing "name" in the request body.');
@@ -48,8 +51,8 @@ router.route('/leave').post((req, res) => {
 
   if (name) {
     console.log(`Received name: ${name}`);
-    players = players.filter((n) => n !== name)
-    console.log(players)
+    data["players"] = data["players"].filter((n) => n !== name)
+    console.log(data)
     res.status(200).send(`Hello, ${name}!`);
   } else {
     res.status(400).send('Bad Request: Missing "name" in the request body.');
