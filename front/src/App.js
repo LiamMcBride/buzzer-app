@@ -9,7 +9,6 @@ import { useState, useEffect } from 'react';
 function App() {
   const [login, setLogin] = useState("");
   const [players, setPlayers] = useState([]);
-  const [kickObserver, setkickObserver] = useState(0);
   
   const protocol = window.location.protocol;
   const host = window.location.host;
@@ -28,10 +27,10 @@ function App() {
       return (<Login players={players} baseUrl={baseUrl} loginHandler={loginHandler}/>);
     }
     if (login == "admin") { // Host screen
-      return (<Host observe={() => setkickObserver(kickObserver + 1)} players={players} baseUrl={baseUrl}></Host>);
+      return (<Host players={players} baseUrl={baseUrl}></Host>);
     }
     else {
-      return (<Player kickObserver={kickObserver} players={players} baseUrl={baseUrl} name={login} logout={() => setLogin("")}/>);
+      return (<Player players={players} baseUrl={baseUrl} name={login} logout={() => setLogin("")}/>);
     }
   }
 

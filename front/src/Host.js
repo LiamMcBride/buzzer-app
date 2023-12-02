@@ -13,7 +13,6 @@ function Host(props) {
             .catch(error => {
                 console.error('Error:', error.message);
             });
-        props.observe();
     }
 
     return (

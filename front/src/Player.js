@@ -22,18 +22,18 @@ function Player(props) {
         }
     }
 
-    useEffect(() => {
-        var present = false; // is the name in the list of players?
-        props.players.forEach(function (name) {
-            console.log(name + "   " + props.name);
-            if (name == props.name) { 
-                present = true;
-            }
-        })
-        if (!present) {
-            props.logout();
-        }
-    }, [props.kickObserver])
+    // useEffect(() => {
+    //     var present = false; // is the name in the list of players?
+    //     props.players.forEach(function (name) {
+    //         console.log(name + "   " + props.name);
+    //         if (name == props.name) { 
+    //             present = true;
+    //         }
+    //     })
+    //     if (!present) {
+    //         props.logout();
+    //     }
+    // },[])
 
     return (
         <div>
