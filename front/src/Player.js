@@ -1,5 +1,5 @@
 import './Player.css';
-import {useState} from 'react'
+import {useState, useEffect} from 'react'
 import axios from 'axios';
 
 function Player(props) {
@@ -18,9 +18,22 @@ function Player(props) {
             .catch(error => {
                 console.error('Error:', error.message);
             });
-            props.logout()
+            props.logout();
         }
     }
+
+    useEffect(() => {
+        var present = false; // is the name in the list of players?
+        props.players.forEach(function (name) {
+            console.log(name + "   " + props.name);
+            if (name == props.name) { 
+                present = true;
+            }
+        })
+        if (!present) {
+            props.logout();
+        }
+    }, [props.kickObserver])
 
     return (
         <div>

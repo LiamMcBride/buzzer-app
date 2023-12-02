@@ -1,0 +1,11 @@
+.player {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    margin-top: 10px;  
+}
+
+.name {
+    margin: 10px;
+}

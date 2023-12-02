@@ -1,26 +1,31 @@
-import './Player.css';
+import './Host.css';
 import { useEffect, useState } from 'react'
 import axios from 'axios';
 
 function Host(props) {
 
-    const [players, setPlayers] = useState([]);
-
-    // pull the new titles from the backend
-    useEffect(() => {
-        axios.get('http://localhost:3000/db/find').then(res => {
-            setPlayers(res["data"]);
-            console.log(res["data"]);
-        })
-    }, [players])
+    function handleKick(e) {
+        var remove = props.players[e.target.id];
+        axios.post(`${props.baseUrl}/db/leave/`, {name: remove})
+            .then(response => {
+                console.log('Response:', response.data);
+            })
+            .catch(error => {
+                console.error('Error:', error.message);
+            });
+        props.observe();
+    }
 
     return (
         <div>
             <ul>
-                players
-                {players.map((elem, i) => {
+                Players
+                {props.players.map((elem, i) => {
                     return (
-                        <p>{elem}</p>
+                        <div class="player">
+                        <p class="name">{elem}</p>
+                        <button id={i} onClick={handleKick}>❌</button>
+                        </div>
                     )
                 })}
             </ul>

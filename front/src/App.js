@@ -7,7 +7,9 @@ import axios from 'axios';
 import { useState, useEffect } from 'react';
 
 function App() {
-  const [login, setLogin] = useState("")
+  const [login, setLogin] = useState("");
+  const [players, setPlayers] = useState([]);
+  const [kickObserver, setkickObserver] = useState(0);
   
   const protocol = window.location.protocol;
   const host = window.location.host;
@@ -23,15 +25,23 @@ function App() {
 
   const screen = () => {
     if (login === "") { // Login screen
-      return (<Login baseUrl={baseUrl} loginHandler={loginHandler}/>);
+      return (<Login players={players} baseUrl={baseUrl} loginHandler={loginHandler}/>);
     }
     if (login == "admin") { // Host screen
-      return (<Host></Host>);
+      return (<Host observe={() => setkickObserver(kickObserver + 1)} players={players} baseUrl={baseUrl}></Host>);
     }
     else {
-      return (<Player baseUrl={baseUrl} name={login} logout={() => setLogin("")}/>);
+      return (<Player kickObserver={kickObserver} players={players} baseUrl={baseUrl} name={login} logout={() => setLogin("")}/>);
     }
   }
+
+  // pull the new titles from the backend
+  useEffect(() => {
+    axios.get('http://localhost:3000/db/find').then(res => {
+        setPlayers(res["data"]);
+        // console.log(res["data"]);
+    })
+}, [players])
 
   return (
     <div className="App">
