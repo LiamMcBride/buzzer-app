@@ -13,7 +13,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cors());
 app.get('/', (req, res) =>
-    res.send('<h1>Homework 5 Express Backend</h1>') // Home web page
+    res.send('<h1>Buzzer App Backend</h1>') // Home web page
 );
 
 
