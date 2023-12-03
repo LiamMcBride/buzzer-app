@@ -6,7 +6,7 @@ function Host(props) {
 
     function handleKick(e) {
         var remove = props.players[e.target.id];
-        axios.post(`${props.baseUrl}/db/leave/`, { name: remove })
+        axios.post(`${props.baseUrl}/db/kick/`, { name: remove })
             .then(response => {
                 console.log('Response:', response.data);
             })

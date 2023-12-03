@@ -1,42 +1,62 @@
 import './Player.css';
-import {useState, useEffect} from 'react'
+import { useState, useEffect } from 'react'
 import axios from 'axios';
 
 function Player(props) {
 
     function handleBuzz(e) {
-        axios.post(`${props.baseUrl}/db/enqueue/`, {name: props.name})
-        .then(response => {
-            console.log('Response:', response.data);
-        })
-        .catch(error => {
-            console.error('Error:', error.message);
-        });
-    }
-
-    function handleExit(e) {
-        const result = window.confirm("Do you wish to exit?")
-        if(result) {
-            axios.post(`${props.baseUrl}/db/leave/`, {name: props.name})
+        axios.post(`${props.baseUrl}/db/enqueue/`, { name: props.name })
             .then(response => {
                 console.log('Response:', response.data);
             })
             .catch(error => {
                 console.error('Error:', error.message);
             });
+    }
+
+    function handleExit(e) {
+        const result = window.confirm("Do you wish to exit?")
+        if (result) {
+            axios.post(`${props.baseUrl}/db/leave/`, { name: props.name })
+                .then(response => {
+                    console.log('Response:', response.data);
+                })
+                .catch(error => {
+                    console.error('Error:', error.message);
+                });
             props.logout();
         }
     }
 
     useEffect(() => {
-        var queued = false;
-        props.queue.forEach((elem, i) => {
+
+        if (props.kick == props.name) {
+            axios.post(`${props.baseUrl}/db/leave/`, { name: props.name })
+                .then(response => {
+                    console.log('Response:', response.data);
+                })
+                .catch(error => {
+                    console.error('Error:', error.message);
+                });
+
+            axios.post(`${props.baseUrl}/db/kick/`, { name: "default" })
+                .then(response => {
+                    console.log('Response:', response.data);
+                })
+                .catch(error => {
+                    console.error('Error:', error.message);
+                });
+            props.logout();
+        }
+
+        var blocked = false;
+        props.blocked.forEach((elem, i) => {
             if (elem == props.name) {
-                queued = true;
+                blocked = true;
             }
         });
 
-        if (queued) {
+        if (blocked) {
             document.getElementById("buzzer").classList.add("disabled");
             document.getElementById("buzzer").classList.remove("buzzer");
         }
@@ -44,20 +64,7 @@ function Player(props) {
             document.getElementById("buzzer").classList.remove("disabled");
             document.getElementById("buzzer").classList.add("buzzer");
         }
-    },[props.queue]);
-
-    // useEffect(() => {
-    //     var present = false; // is the name in the list of players?
-    //     props.players.forEach(function (name) {
-    //         console.log(name + "   " + props.name);
-    //         if (name == props.name) { 
-    //             present = true;
-    //         }
-    //     })
-    //     if (!present) {
-    //         props.logout();
-    //     }
-    // },[])
+    }, [props.blocked, props.kick]);
 
     return (
         <div>
