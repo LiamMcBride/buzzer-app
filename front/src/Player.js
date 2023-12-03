@@ -5,7 +5,13 @@ import axios from 'axios';
 function Player(props) {
 
     function handleBuzz(e) {
-
+        axios.post(`${props.baseUrl}/db/enqueue/`, {name: props.name})
+        .then(response => {
+            console.log('Response:', response.data);
+        })
+        .catch(error => {
+            console.error('Error:', error.message);
+        });
     }
 
     function handleExit(e) {
@@ -21,6 +27,24 @@ function Player(props) {
             props.logout();
         }
     }
+
+    useEffect(() => {
+        var queued = false;
+        props.queue.forEach((elem, i) => {
+            if (elem == props.name) {
+                queued = true;
+            }
+        });
+
+        if (queued) {
+            document.getElementById("buzzer").classList.add("disabled");
+            document.getElementById("buzzer").classList.remove("buzzer");
+        }
+        else {
+            document.getElementById("buzzer").classList.remove("disabled");
+            document.getElementById("buzzer").classList.add("buzzer");
+        }
+    },[props.queue]);
 
     // useEffect(() => {
     //     var present = false; // is the name in the list of players?
@@ -38,7 +62,8 @@ function Player(props) {
     return (
         <div>
             <button onClick={handleExit} id="exit">Exit</button>
-            <button onClick={handleBuzz} id="buzzer">Buzz</button>
+            <h1>{props.name}</h1>
+            <button class="buzzer" onClick={handleBuzz} id="buzzer">Buzz</button>
         </div>
     );
 }

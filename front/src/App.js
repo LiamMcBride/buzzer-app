@@ -1,4 +1,3 @@
-import logo from './logo.svg';
 import './App.css';
 import Login from './Login';
 import Player from './Player';
@@ -9,14 +8,15 @@ import { useState, useEffect } from 'react';
 function App() {
   const [login, setLogin] = useState("");
   const [players, setPlayers] = useState([]);
+  const [queue, setQueue] = useState([]);
   
   const protocol = window.location.protocol;
   const host = window.location.host;
   
   // Set the base URL
   let newBaseUrl = `${protocol}//${host}`;
-  newBaseUrl = newBaseUrl.slice(0,-1) + "0"
-  const [baseUrl, setBaseUrl] = useState(newBaseUrl)
+  newBaseUrl = newBaseUrl.slice(0,-1) + "0";
+  const [baseUrl, setBaseUrl] = useState(newBaseUrl);
 
   function loginHandler(name) {
     setLogin(name);
@@ -27,20 +27,20 @@ function App() {
       return (<Login players={players} baseUrl={baseUrl} loginHandler={loginHandler}/>);
     }
     if (login == "admin") { // Host screen
-      return (<Host players={players} baseUrl={baseUrl}></Host>);
+      return (<Host queue={queue} players={players} baseUrl={baseUrl}></Host>);
     }
     else {
-      return (<Player players={players} baseUrl={baseUrl} name={login} logout={() => setLogin("")}/>);
+      return (<Player queue={queue} players={players} baseUrl={baseUrl} name={login} logout={() => setLogin("")}/>);
     }
   }
 
   // pull the new titles from the backend
   useEffect(() => {
     axios.get('http://localhost:3000/db/find').then(res => {
-        setPlayers(res["data"]);
-        // console.log(res["data"]);
-    })
-}, [players])
+        setPlayers(res["data"]["players"]);
+        setQueue(res["data"]["queue"]);
+    });
+}, [players, queue])
 
   return (
     <div className="App">

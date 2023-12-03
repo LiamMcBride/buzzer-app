@@ -1,8 +1,18 @@
-#buzzer {
+.disabled {
     display: block;
     margin: 0 auto;
     width: 75px;
     height: 75px;
     border-radius: 50%;
+    pointer-events: none;
+    background-color: rgb(109, 0, 0);
+}
 
+.buzzer {
+    display: block;
+    margin: 0 auto;
+    width: 75px;
+    height: 75px;
+    border-radius: 50%;
+    background-color: red;
 }
