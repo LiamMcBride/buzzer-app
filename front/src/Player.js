@@ -68,9 +68,13 @@ function Player(props) {
 
     return (
         <div>
-            <button onClick={handleExit} id="exit">Exit</button>
+            <button onClick={handleExit} id="exit">
+                <span>Exit</span>
+            </button>
             <h1>{props.name}</h1>
-            <button class="buzzer" onClick={handleBuzz} id="buzzer">Buzz</button>
+            <button class="buzzer" onClick={handleBuzz} id="buzzer">
+                <span>Press Me</span>
+            </button>
         </div>
     );
 }

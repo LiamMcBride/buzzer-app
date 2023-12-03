@@ -36,7 +36,9 @@ function Login(props) {
 
     return (
         <div id="loginScreen">
-            <button onClick={() => loginHandler(name)} disabled={name === ""}>Join</button>
+            <button onClick={() => loginHandler(name)} disabled={name === ""}>
+                <span>Join</span>
+            </button>
             <input onInput={inputHandler} id="name-input" placeholder="enter name"></input>
             <p id="taken" class="hidden">Name Taken</p>
         </div>

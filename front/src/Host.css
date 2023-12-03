@@ -1,11 +1,42 @@
+#hostScreen {
+    display: flex;
+    flex-direction: center;
+    justify-content: center;
+    padding: 20px;
+    height: 85vh;
+}
+
+#container {
+    display: flex;
+    justify-content: center;
+    padding: 20px;
+}
+
+#players {
+    background-color: lightgreen;
+    padding: 20px;
+    margin-left: 20px;
+}
+
+#queue {
+    background-color: rgb(255, 180, 151);
+    padding: 20px;
+    user-select: none;
+}
+
 .player {
     display: flex;
     flex-direction: row;
     justify-content: center;
     align-items: center;
-    margin-top: 10px;  
+    user-select: none;
 }
 
 .name {
     margin: 10px;
+    border: 2px solid #000;
+    border-radius: 10px;
+    padding: 5px;
+    background-color: lightgray;
+    user-select: none;
 }

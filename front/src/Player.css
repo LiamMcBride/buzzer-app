@@ -1,18 +1,40 @@
+body {
+    background-color: lightskyblue;
+    overflow: hidden;
+}
+
 .disabled {
+    background-color: rgb(109, 0, 0);
+    text-align: center;
     display: block;
     margin: 0 auto;
-    width: 75px;
-    height: 75px;
+    width: 200px;
+    height: 200px;
     border-radius: 50%;
-    pointer-events: none;
-    background-color: rgb(109, 0, 0);
+    font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+    font-size: 45px;
+    color: black;
+    border: 5px solid #000;
+}
+
+h1 {
+    user-select: none;
+}
+
+span {
+    user-select: none;
 }
 
 .buzzer {
+    text-align: center;
     display: block;
     margin: 0 auto;
-    width: 75px;
-    height: 75px;
+    width: 200px;
+    height: 200px;
     border-radius: 50%;
     background-color: red;
+    font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+    font-size: 45px;
+    color: black;
+    border: 5px solid #000;
 }

@@ -33,34 +33,35 @@ function Host(props) {
             .catch(error => {
                 console.error('Error:', error.message);
             });
-            // enable all buttons
     }
 
     return (
-        <div>
-            <ul>
-                <h1>Players</h1>
-                {props.players.map((elem, i) => {
-                    return (
-                        <div class="player">
-                            <p class="name">{elem}</p>
-                            <button id={i} onClick={handleKick}>❌</button>
-                        </div>
-                    )
-                })}
-            </ul>
-            <ul>
-                <h1>Queue</h1>
-                <button onClick={handleDequeue}>Dequeue</button>
-                <button onClick={handleClear}>Clear</button>
-                {props.queue.map((elem, i) => {
-                    return (
-                        <div class="player">
-                            <p class="name">{elem}</p>
-                        </div>
-                    )
-                })}
-            </ul>
+        <div id="hostScreen">
+            <div id="container">
+                <ul id="queue">
+                    <h1>Queue</h1>
+                    <button onClick={handleDequeue}>Dequeue</button>
+                    <button onClick={handleClear}>Clear</button>
+                    {props.queue.map((elem, i) => {
+                        return (
+                            <div class="player">
+                                <p class="name">{elem}</p>
+                            </div>
+                        )
+                    })}
+                </ul>
+                <ul id="players">
+                    <h1>Players</h1>
+                    {props.players.map((elem, i) => {
+                        return (
+                            <div class="player">
+                                <p class="name">{elem}</p>
+                                <button id={i} onClick={handleKick}>❌</button>
+                            </div>
+                        )
+                    })}
+                </ul>
+            </div>
         </div>
     );
 }
