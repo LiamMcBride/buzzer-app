@@ -5,13 +5,15 @@ import axios from 'axios';
 function Player(props) {
 
     function handleBuzz(e) {
-        axios.post(`${props.baseUrl}/db/enqueue/`, { name: props.name })
-            .then(response => {
-                console.log('Response:', response.data);
-            })
-            .catch(error => {
-                console.error('Error:', error.message);
-            });
+        if (!document.getElementById("buzzer").classList.contains("disabled")) {
+            axios.post(`${props.baseUrl}/db/enqueue/`, { name: props.name })
+                .then(response => {
+                    console.log('Response:', response.data);
+                })
+                .catch(error => {
+                    console.error('Error:', error.message);
+                });
+        }
     }
 
     function handleExit(e) {
