@@ -1,7 +1,7 @@
 import axios from 'axios';
 import './Login.css';
 import { useState, useEffect } from 'react'
-import Filter from 'bad-words';
+import { isObscene } from './languageFilter';
 
 
 function Login(props) {
@@ -10,12 +10,8 @@ function Login(props) {
 
     function inputHandler(e) {
         document.getElementById("taken").className = "hidden";
-        let x = e.target.value
-        if (x !== ""){
-            const filter = new Filter()
-            x = filter.clean(x)
-            console.log(x)
-            setName(x)
+        if (e.target.value !== ""){
+            setName(e.target.value)
         }
         else {
             setName("")
@@ -41,7 +37,7 @@ function Login(props) {
 
     return (
         <div id="loginScreen">
-            <button onClick={() => loginHandler(name)} disabled={name === ""}>
+            <button onClick={() => loginHandler(name)} disabled={name === "" || isObscene(name)}>
                 <span>Join</span>
             </button>
             <input onInput={inputHandler} id="name-input" placeholder="enter name"></input>
