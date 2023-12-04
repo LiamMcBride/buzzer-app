@@ -1,3 +1,5 @@
+//generated using https://github.com/jo3-l/obscenity
+
 const {
 	RegExpMatcher,
 	TextCensor,
