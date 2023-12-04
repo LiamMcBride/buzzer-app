@@ -1,6 +1,8 @@
 import axios from 'axios';
 import './Login.css';
 import { useState, useEffect } from 'react'
+import Filter from 'bad-words';
+
 
 function Login(props) {
 
@@ -8,9 +10,12 @@ function Login(props) {
 
     function inputHandler(e) {
         document.getElementById("taken").className = "hidden";
-
-        if (e.target.value !== ""){
-            setName(e.target.value)
+        let x = e.target.value
+        if (x !== ""){
+            const filter = new Filter()
+            x = filter.clean(x)
+            console.log(x)
+            setName(x)
         }
         else {
             setName("")
