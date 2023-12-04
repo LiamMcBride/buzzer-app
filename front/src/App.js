@@ -38,7 +38,7 @@ function App() {
 
   // pull the new titles from the backend
   useEffect(() => {
-    axios.get('http://localhost:3000/db/find').then(res => {
+    axios.get(`${baseUrl}/db/find`).then(res => {
       setPlayers(res["data"]["players"]);
       setQueue(res["data"]["queue"]);
       setBlocked(res["data"]["blocked"]);
