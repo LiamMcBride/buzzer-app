@@ -17,7 +17,13 @@ function Player(props) {
     }
 
     function handleExit(e) {
-        const result = window.confirm("Do you wish to exit?")
+
+        var result = true;
+
+        if (e !== "unload") {
+            result = window.confirm("Do you wish to exit?")
+        }
+
         if (result) {
             axios.post(`${props.baseUrl}/db/leave/`, { name: props.name })
                 .then(response => {
@@ -29,6 +35,29 @@ function Player(props) {
             props.logout();
         }
     }
+
+    useEffect(() => {
+
+        const isMobileDevice = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+
+        const handleBeforeUnload = () => {
+            handleExit("unload");
+        };
+
+        const handleVisibilityChange = () => {
+            if (isMobileDevice) {
+                handleExit("unload");
+            }
+        };
+
+        window.addEventListener("beforeunload", handleBeforeUnload);
+        document.addEventListener("visibilitychange", handleVisibilityChange);
+        return () => {
+            window.removeEventListener("beforeunload", handleBeforeUnload);
+            document.removeEventListener("visibilitychange", handleVisibilityChange);
+        }
+
+    },[]);
 
     useEffect(() => {
 
@@ -66,6 +95,7 @@ function Player(props) {
             document.getElementById("buzzer").classList.remove("disabled");
             document.getElementById("buzzer").classList.add("buzzer");
         }
+
     }, [props.blocked, props.kick]);
 
     return (
