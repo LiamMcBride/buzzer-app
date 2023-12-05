@@ -29,7 +29,7 @@ function App() {
       return (<Login players={players} baseUrl={baseUrl} loginHandler={loginHandler} />);
     }
     if (login == "admin") { // Host screen
-      return (<Host queue={queue} players={players} baseUrl={baseUrl}></Host>);
+      return (<Host blocked={blocked} queue={queue} players={players} baseUrl={baseUrl}></Host>);
     }
     else {
       return (<Player kick={kick} blocked={blocked} players={players} baseUrl={baseUrl} name={login} logout={() => setLogin("")} />);
