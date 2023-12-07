@@ -1,0 +1,15 @@
+#loginScreen {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin-top: 10px;  
+}
+
+.hidden {
+    display: none
+}
+
+button, input {
+    margin-bottom: 10px;
+}
