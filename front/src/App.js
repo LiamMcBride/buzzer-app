@@ -2,6 +2,7 @@ import './App.css';
 import Login from './Login';
 import Player from './Player';
 import Host from './Host';
+import Lobby from './Lobby';
 import axios from 'axios';
 import { useState, useEffect } from 'react';
 
@@ -11,6 +12,7 @@ function App() {
   const [queue, setQueue] = useState([]);
   const [blocked, setBlocked] = useState([]);
   const [kick, setKick] = useState([]);
+  const [start, setStart] = useState(null);
 
   const protocol = window.location.protocol;
   const host = window.location.host;
@@ -29,10 +31,15 @@ function App() {
       return (<Login players={players} baseUrl={baseUrl} loginHandler={loginHandler} />);
     }
     if (login == "admin") { // Host screen
-      return (<Host blocked={blocked} queue={queue} players={players} baseUrl={baseUrl}></Host>);
+      return (<Host start={start} blocked={blocked} queue={queue} players={players} baseUrl={baseUrl}></Host>);
     }
     else {
-      return (<Player kick={kick} blocked={blocked} players={players} baseUrl={baseUrl} name={login} logout={() => setLogin("")} />);
+      if (start) {
+      return (<Player start={start} kick={kick} blocked={blocked} players={players} baseUrl={baseUrl} name={login} logout={() => setLogin("")} />);
+      }
+      else {
+        return (<Lobby baseUrl={baseUrl} kick={kick} name={login} logout={() => setLogin("")} players={players}></Lobby>);
+      }
     }
   }
 
@@ -43,8 +50,9 @@ function App() {
       setQueue(res["data"]["queue"]);
       setBlocked(res["data"]["blocked"]);
       setKick(res["data"]["kick"]);
+      setStart(res["data"]["start"]);
     });
-  }, [players, queue, blocked, kick])
+  }, [players, queue, blocked, kick, start])
 
   return (
     <div className="App">

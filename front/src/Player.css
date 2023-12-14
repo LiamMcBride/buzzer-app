@@ -1,6 +1,6 @@
 body {
     background-color: lightskyblue;
-    overflow: hidden;
+    /* overflow: hidden; */
 }
 
 .disabled {
@@ -38,4 +38,8 @@ span {
     font-size: 45px;
     color: black;
     border: 5px solid #000;
+}
+
+#playerList {
+    position: absolute;
 }

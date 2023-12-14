@@ -20,7 +20,8 @@ let data = {
   players: [],
   queue: [],
   blocked: [],
-  kick: "default"
+  kick: "default",
+  start: false
 };
 
 
@@ -50,6 +51,14 @@ router.route('/join').post((req, res) => {
   } else {
     res.status(400).send('Bad Request: Missing "name" in the request body.');
   }
+});
+
+router.route('/start').post((req, res) => {
+  data["start"] = true;
+});
+
+router.route('/stop').post((req, res) => {
+  data["start"] = false;
 });
 
 router.route('/enqueue').post((req, res) => {

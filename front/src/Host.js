@@ -4,6 +4,8 @@ import axios from 'axios';
 
 function Host(props) {
 
+    const [buttonText, setButtonText] = useState("");
+
     function handleKick(e) {
         var remove = props.players[e.target.id];
         axios.post(`${props.baseUrl}/db/kick/`, { name: remove })
@@ -53,13 +55,37 @@ function Host(props) {
         }
     }
 
+    function handleStart() {
+        if (props.start) {
+            axios.post(`${props.baseUrl}/db/stop/`, {});
+        }
+        else {
+            axios.post(`${props.baseUrl}/db/start/`, {});
+        }
+        console.log(props.start);
+    }
+
+    useEffect(() => {
+        if (props.start) {
+            setButtonText( "Stop Game");
+        }
+        else {
+            setButtonText("Start Game");
+        }
+    }, [props.start]);
+
+    
+
     return (
         <div id="hostScreen">
+            <button onClick={handleStart}>{buttonText}</button>
             <div id="container">
                 <ul id="queue">
                     <h1>Queue</h1>
-                    <button onClick={handleDequeue}>Dequeue</button>
-                    <button onClick={handleClear}>Clear</button>
+                    <div id="queueButtons">
+                        <button onClick={handleDequeue}>Dequeue</button>
+                        <button id="clear" onClick={handleClear}>Clear</button>
+                    </div>
                     {props.queue.map((elem, i) => {
                         return (
                             <div class="player">
@@ -79,7 +105,7 @@ function Host(props) {
                         )
                     })}
                 </ul>
-                <ul id="blocked" class="hidden">
+                <ul id="blocked">
                     <h1>Blocked</h1>
                     {props.blocked.map((elem, i) => {
                         return (
@@ -102,4 +128,4 @@ function Host(props) {
     );
 }
 
-export default Host;
+export default Host; 

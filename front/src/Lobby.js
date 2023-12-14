@@ -1,20 +1,8 @@
-import './Player.css';
-import { useState, useEffect } from 'react'
+import './Lobby.css';
+import { useEffect, useState } from 'react'
 import axios from 'axios';
 
-function Player(props) {
-
-    function handleBuzz(e) {
-        if (!document.getElementById("buzzer").classList.contains("disabled")) {
-            axios.post(`${props.baseUrl}/db/enqueue/`, { name: props.name })
-                .then(response => {
-                    console.log('Response:', response.data);
-                })
-                .catch(error => {
-                    console.error('Error:', error.message);
-                });
-        }
-    }
+function Lobby(props) {
 
     function handleExit(e) {
 
@@ -80,35 +68,23 @@ function Player(props) {
             props.logout();
         }
 
-        var blocked = false;
-        props.blocked.forEach((elem, i) => {
-            if (elem == props.name) {
-                blocked = true;
-            }
-        });
-
-        if (blocked) {
-            document.getElementById("buzzer").classList.add("disabled");
-            document.getElementById("buzzer").classList.remove("buzzer");
-        }
-        else {
-            document.getElementById("buzzer").classList.remove("disabled");
-            document.getElementById("buzzer").classList.add("buzzer");
-        }
-
-    }, [props.blocked, props.kick]);
+    }, [props.kick]);
 
     return (
         <div>
-            <button onClick={handleExit} id="exit">
+             <button onClick={handleExit} id="exit">
                 <span>Exit</span>
             </button>
-            <h1>{props.name}</h1>
-            <button class="buzzer" onClick={handleBuzz} id="buzzer">
-                <span>Press Me</span>
-            </button>
+            <p>Waiting for the host to start the game...</p>
+            {props.players.map((elem, i) => {
+                return (
+                    <div class="player">
+                        <p class="name">{elem}</p>
+                    </div>
+                )
+            })}
         </div>
-    );
+    )
 }
 
-export default Player;
+export default Lobby;
