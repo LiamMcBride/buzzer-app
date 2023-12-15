@@ -14,7 +14,7 @@
 #container {
     display: flex;
     justify-content: center;
-    height: 80vh;
+    height: 75vh;
     padding: 20px;
 }
 
@@ -52,4 +52,15 @@
     padding: 5px;
     background-color: lightgray;
     user-select: none;
+}
+
+#queueButtons {
+    display: flex;
+    flex-direction: column;
+}
+
+#clear {
+    font-size: 50px;
+    font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+    border-radius: 25%;
 }

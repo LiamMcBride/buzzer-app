@@ -39,3 +39,11 @@ span {
     color: black;
     border: 5px solid #000;
 }
+
+#playerList {
+    position: absolute;
+}
+
+#exit {
+    margin: 10px;
+}
