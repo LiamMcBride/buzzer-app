@@ -10,7 +10,7 @@ function Player(props) {
     
     
     function playSound() {
-
+ 
         if (soundRef.current) {
             soundRef.current.stop();
         }

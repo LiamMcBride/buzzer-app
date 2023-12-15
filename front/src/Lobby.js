@@ -76,6 +76,7 @@ function Lobby(props) {
                 <span>Exit</span>
             </button>
             <p>Waiting for the host to start the game...</p>
+            <h1>Players</h1>
             {props.players.map((elem, i) => {
                 return (
                     <div class="player">
