@@ -1,11 +1,33 @@
 import './Player.css';
-import { useState, useEffect } from 'react'
+import { useRef, useEffect } from 'react'
 import axios from 'axios';
+import { Howl, Howler} from 'howler';
 
 function Player(props) {
 
+    const soundRef = useRef(null);
+
+    
+    
+    function playSound() {
+
+        if (soundRef.current) {
+            soundRef.current.stop();
+        }
+
+        soundRef.current = new Howl({
+            src: ['/sound.mp3'],
+            onend: () => {
+                soundRef.current.unload();
+            },
+        });
+
+        soundRef.current.play();
+    }
+
     function handleBuzz(e) {
         if (!document.getElementById("buzzer").classList.contains("disabled")) {
+            playSound();
             axios.post(`${props.baseUrl}/db/enqueue/`, { name: props.name })
                 .then(response => {
                     console.log('Response:', response.data);
@@ -57,7 +79,7 @@ function Player(props) {
             // document.removeEventListener("visibilitychange", handleVisibilityChange);
         }
 
-    },[]);
+    }, []);
 
     useEffect(() => {
 
